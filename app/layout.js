@@ -5,7 +5,7 @@ import SideNavigation from './_components/SideNavigation';
 export const metadata = {
   title: {
     template: '%s  |  Crossfit Workout Tracker',
-    default: 'Welcome  |  Crossfit Workout Tracker',
+    default: 'Crossfit Workout Tracker',
   },
   description: 'All in one personal fitness and workout tracker',
 };
@@ -21,7 +21,6 @@ export default function RootLayout({ children }) {
       <body className={`${dmSans.className} bg-slate-100`}>
         <header></header>
         <main className="grid h-full grid-cols-[16rem_1fr] gap-12">
-          {' '}
           <SideNavigation />
           {children}
         </main>
