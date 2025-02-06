@@ -1,4 +1,5 @@
 import WOD from '../_components/WOD';
+import { tempWorkouts } from './tempWorkouts';
 
 export const metadata = {
   title: 'Work Out',
@@ -29,7 +30,7 @@ export default function Page() {
           <WOD>"Alice"</WOD>
         </div>
         <div className="border-2 border-black bg-blue-300 px-3">
-          Add Workout
+          <WOD>Snatch Barbell Progression</WOD>
         </div>
         <div className="border-2 border-black bg-blue-100 px-3">
           Add Workout
@@ -58,7 +59,9 @@ export default function Page() {
         <WODDate altRow="odd">Tuesday</WODDate>
         <WODList altRow="odd">
           <WOD>Skill EMOM</WOD>
-          <WOD>"Breakout"</WOD>
+          {/* //////////// /////////// /////////// Our first dynamic route WOD page */}
+          <WOD wodID="001">"Breakout"</WOD>
+          {/* /////////////////// ///////// //////////// */}
         </WODList>
         <WODDate altRow="even">Wednesday</WODDate>
         <WODList altRow="even">
