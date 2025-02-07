@@ -33,7 +33,7 @@ export default function Page() {
           <WOD>Snatch Barbell Progression</WOD>
         </div>
         <div className="border-2 border-black bg-blue-100 px-3">
-          Add Workout
+          <RestDay />
         </div>
         <div className="border-2 border-black bg-blue-300 px-3">
           Add Workout
