@@ -1,5 +1,6 @@
 import WOD from '../_components/WOD';
 import { tempWorkouts } from './tempWorkouts';
+import Link from 'next/link';
 
 export const metadata = {
   title: 'Work Out',
@@ -9,6 +10,15 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-4xl font-bold">Workout Log</h1>
+
+      <div className="flex min-w-[240px] flex-col gap-1 p-2 text-base font-normal">
+        <Link
+          href="/workout/new"
+          className="flex items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-white hover:bg-opacity-80 focus:bg-white focus:bg-opacity-80 active:bg-white active:bg-opacity-80"
+        >
+          Log a Workout
+        </Link>
+      </div>
       <div>Feb 2 - 8</div>
       <div className="grid-cols-[1em, 1fr] m-2 grid grid-flow-col grid-rows-7">
         <div className="border-2 border-black bg-blue-100 px-3">Sunday</div>
