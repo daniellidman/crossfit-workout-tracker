@@ -1,19 +1,21 @@
 'use client';
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { logWorkout } from '../_lib/logWorkout';
 
 export default function ReactForm() {
+  const router = useRouter();
   const [formValues, setFormValues] = useState([
     {
       name: '',
-      scale: '',
-      scoreType: '',
-      notes: '',
-      quantity: 1,
-      textInput: '',
       date: '',
+      scoreType: '',
+      scale: '',
       timeMin: 0,
       timeSec: 0,
+      workoutDescription: '',
+      notes: '',
     },
   ]);
 
@@ -21,37 +23,42 @@ export default function ReactForm() {
     e.preventDefault();
 
     // ERROR CATCHING
-    if (!formValues.name) return;
-
-    const newItem = {
-      notes: formValues.notes,
-      quantity: formValues.quantity,
-      textInput: formValues.textInput,
-      date: formValues.date,
-      id: Date.now(),
-    };
+    if (!formValues.date) return;
 
     // FORM SUBMIT FUNCTION
-    console.log(newItem);
+    const newSubmission = {
+      name: formValues.name,
+      date: formValues.date,
+      scoreType: formValues.scoreType,
+      scale: formValues.scale,
+      timeMin: formValues.timeMin,
+      timeSec: formValues.timeSec,
+      workoutDescription: formValues.workoutDescription,
+      notes: formValues.notes,
+    };
+
+    console.log(newSubmission);
 
     // RESET FORM
-    setFormValues({ notes: '', quantity: 1, textInput: '', date: '' });
+    /*
+    setFormValues({
+      name: '',
+      date: '',
+      scoreType: '',
+      scale: '',
+      timeMin: 0,
+      timeSec: 0,
+      workoutDescription: '',
+      notes: '',
+    });
+    */
+
+    // Navigate to new page
+    router.push('/workout', { scroll: false });
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label htmlFor="date" className="font-bold">
-        Date
-      </label>
-      <input
-        name="date"
-        id="date"
-        type="date"
-        value={formValues.date || ''}
-        onChange={(e) => setFormValues({ ...formValues, date: e.target.value })}
-        className="block"
-      />
-
+    <form action={logWorkout}>
       <label htmlFor="name" className="font-bold">
         Workout Name
       </label>
@@ -63,6 +70,17 @@ export default function ReactForm() {
         value={formValues.name || ''}
         onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
         className="block w-3/4"
+      />
+      <label htmlFor="date" className="font-bold">
+        Date
+      </label>
+      <input
+        name="date"
+        id="date"
+        type="date"
+        value={formValues.date || ''}
+        onChange={(e) => setFormValues({ ...formValues, date: e.target.value })}
+        className="block"
       />
 
       <label htmlFor="scoreType" className="font-bold">
@@ -128,6 +146,19 @@ export default function ReactForm() {
         }
       />
 
+      <label htmlFor="workout details" className="block font-bold">
+        Workout Details
+      </label>
+      <textarea
+        name="workoutDescription"
+        id="workoutDescription"
+        value={formValues.workoutDescription}
+        onChange={(e) =>
+          setFormValues({ ...formValues, workoutDescription: e.target.value })
+        }
+        className="block w-3/4"
+      ></textarea>
+
       <label htmlFor="notes" className="block font-bold">
         Notes
       </label>
@@ -141,7 +172,7 @@ export default function ReactForm() {
         className="block w-3/4"
       ></textarea>
 
-      <button>Add</button>
+      <button type="submit">Add</button>
     </form>
   );
 }
