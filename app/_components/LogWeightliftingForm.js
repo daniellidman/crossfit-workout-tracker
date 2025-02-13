@@ -3,9 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Form from 'next/form';
-import { logWorkout } from '../_lib/logWorkout';
+import { logWeightlifting } from '../_lib/logWorkout';
 
-export default function LogWorkoutForm() {
+export default function LogWeightliftingForm() {
   const router = useRouter();
   const [formValues, setFormValues] = useState([
     {
@@ -33,7 +33,7 @@ export default function LogWorkoutForm() {
       notes: formValues.notes,
     };
 
-    await logWorkout(newSubmission);
+    await logWeightlifting(newSubmission);
 
     // Navigate to new page
     router.push('/workout', { scroll: false });

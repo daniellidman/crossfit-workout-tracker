@@ -19,13 +19,3 @@ export default function Page() {
     </div>
   );
 }
-
-/*
-Name
-Date
-Score Type
-Scaling
-Time (converted to a number)
-Movements (converted to an array of numbers)
-Workout
-*/

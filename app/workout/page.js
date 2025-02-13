@@ -11,12 +11,18 @@ export default function Page() {
     <div>
       <h1 className="text-4xl font-bold">Workout Log</h1>
 
-      <div className="flex min-w-[240px] flex-col gap-1 p-2 text-base font-normal">
+      <div className="flex min-w-[240px] gap-1 p-2 text-base font-normal">
         <Link
-          href="/workout/new"
+          href="/workout/new/workout"
           className="flex items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-white hover:bg-opacity-80 focus:bg-white focus:bg-opacity-80 active:bg-white active:bg-opacity-80"
         >
           Log a Workout
+        </Link>
+        <Link
+          href="/workout/new/weightlifting"
+          className="flex items-center rounded-lg p-3 text-start leading-tight outline-none transition-all hover:bg-white hover:bg-opacity-80 focus:bg-white focus:bg-opacity-80 active:bg-white active:bg-opacity-80"
+        >
+          Log Weightlifting
         </Link>
       </div>
       <div>Feb 2 - 8</div>
