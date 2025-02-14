@@ -71,3 +71,13 @@ export async function logWeightlifting(newSubmission) {
     console.log('Data inserted successfully:', data);
   }
 }
+
+export async function loadMovements() {
+  const { data, error } = await supabase.from('movements').select('*');
+
+  if (error) {
+    console.error(error);
+  }
+
+  return data;
+}

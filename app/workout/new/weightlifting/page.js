@@ -1,11 +1,14 @@
+import LogWeightliftingForm from '@/app/_components/LogWeightliftingForm';
+import { loadMovements } from '@/app/_lib/logWorkout';
 import Link from 'next/link';
-import LogWeightliftingForm from '@/app/_components/LogWorkoutForm';
 
 export const metadata = {
   title: 'Log Weightlifting',
 };
 
-export default function Page() {
+export default async function Page() {
+  const loadedMovements = await loadMovements();
+  console.log(loadedMovements);
   return (
     <div>
       <Link
@@ -15,7 +18,7 @@ export default function Page() {
         &larr;
       </Link>
       <h1 className="mt-14 text-4xl font-bold">Log Weightlifting</h1>
-      <LogWeightliftingForm />
+      <LogWeightliftingForm loadedMovements={loadedMovements} />
     </div>
   );
 }

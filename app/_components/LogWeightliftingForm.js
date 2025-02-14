@@ -3,25 +3,25 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Form from 'next/form';
-import { logWeightlifting } from '../_lib/logWorkout';
 
-export default function LogWeightliftingForm() {
+export default function LogWeightliftingForm({ loadedMovements }) {
   const router = useRouter();
   const [formValues, setFormValues] = useState([
     {
-      name: '',
+      movement: '',
       date: '',
       scoreType: '',
       scale: '',
-      timeMin: 0,
-      timeSec: 0,
+      weight: 0,
+      reps: 0,
       workoutDescription: '',
       notes: '',
     },
   ]);
 
   async function handleSubmit(formData) {
-    // FORM SUBMIT FUNCTION
+    //
+
     const newSubmission = {
       name: formValues.name,
       date: formValues.date,
@@ -41,18 +41,6 @@ export default function LogWeightliftingForm() {
 
   return (
     <Form action={handleSubmit}>
-      <label htmlFor="name" className="font-bold">
-        Workout Name
-      </label>
-      <input
-        name="name"
-        id="name"
-        type="text"
-        placeholder={`Workout ${new Date().toLocaleDateString()}`}
-        value={formValues.name || ''}
-        onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
-        className="block w-3/4"
-      />
       <label htmlFor="date" className="font-bold">
         Date
       </label>
@@ -65,81 +53,41 @@ export default function LogWeightliftingForm() {
         className="block"
       />
 
-      <label htmlFor="scoreType" className="font-bold">
-        Scoring
-      </label>
-      <select
-        name="scoreType"
-        id="scoreType"
-        value={formValues.scoreType}
-        onChange={(e) =>
-          setFormValues({ ...formValues, scoreType: e.target.value })
-        }
-        className="block"
-      >
-        <option value="">-Score Type-</option>
-        <option value="forTime">For Time</option>
-        <option value="weightlifting">Weight Lifting</option>
-        <option value="roundsAndReps">Rounds & Reps</option>
-        <option value="reps">Reps</option>
-        <option value="distance">Distance</option>
-        <option value="calories">Calories</option>
-      </select>
-
-      <label htmlFor="scale" className="font-bold">
-        Scaling
-      </label>
-      <select
-        name="scale"
-        id="scale"
-        value={formValues.scale}
-        defaultValue="rx"
-        onChange={(e) =>
-          setFormValues({ ...formValues, scale: e.target.value })
-        }
-        className="block"
-      >
-        <option value="scaled">Scaled</option>
-        <option value="rx">RX</option>
-        <option value="rxPlus">RX+</option>
-      </select>
-
-      <label htmlFor="time" className="block font-bold">
-        Time
-      </label>
       <input
-        name="timeMin"
-        id="timeMin"
+        name="reps"
+        id="reps"
         type="number"
-        placeholder="Minutes"
-        value={formValues.timeMin || ''}
-        onChange={(e) =>
-          setFormValues({ ...formValues, timeMin: e.target.value })
-        }
-      />
-      <input
-        name="timeSec"
-        id="timeSec"
-        type="number"
-        placeholder="Seconds"
-        value={formValues.timeSec || ''}
-        onChange={(e) =>
-          setFormValues({ ...formValues, timeSec: e.target.value })
-        }
+        placeholder="Reps"
+        value={formValues.reps || ''}
+        onChange={(e) => setFormValues({ ...formValues, reps: e.target.value })}
       />
 
-      <label htmlFor="workout details" className="block font-bold">
-        Workout Details
-      </label>
-      <textarea
-        name="workoutDescription"
-        id="workoutDescription"
-        value={formValues.workoutDescription}
+      <select
+        name="movement"
+        id="movement"
+        value={formValues.movement}
         onChange={(e) =>
-          setFormValues({ ...formValues, workoutDescription: e.target.value })
+          setFormValues({ ...formValues, movement: e.target.value })
         }
-        className="block w-3/4"
-      ></textarea>
+      >
+        <option value="">-Select-</option>
+        {loadedMovements.map((mov) => (
+          <option value={mov.name} key={mov.id}>
+            {mov.name}
+          </option>
+        ))}
+      </select>
+
+      <input
+        name="weight"
+        id="weight"
+        type="number"
+        placeholder="Pounds"
+        value={formValues.weight || ''}
+        onChange={(e) =>
+          setFormValues({ ...formValues, weight: e.target.value })
+        }
+      />
 
       <label htmlFor="notes" className="block font-bold">
         Notes
