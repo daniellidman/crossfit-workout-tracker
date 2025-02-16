@@ -37,38 +37,28 @@ export async function logWorkout(newSubmission) {
   }
 }
 
-export async function logWeightlifting(newSubmission) {
-  const {
-    name,
-    date,
-    scoreType,
-    scale,
-    timeMin,
-    timeSec,
-    workoutDescription,
-    notes,
-  } = newSubmission;
+export async function logWeightlifting(arrayOfLifts) {
+  const sessionNow = new Date();
 
-  const { data, error } = await supabase
-    .from('weightlifting')
-    .insert([
-      {
-        name,
-        date,
-        scoreType,
-        scale,
-        timeMin,
-        timeSec,
-        workoutDescription,
-        notes,
-      },
-    ])
-    .select();
+  for (let i = 0; i < arrayOfLifts.length; i++) {
+    const { data, error } = await supabase
+      .from('weightlifting')
+      .insert([
+        {
+          date: arrayOfLifts[i].date,
+          reps: arrayOfLifts[i].reps,
+          movement: arrayOfLifts[i].movement,
+          weight: arrayOfLifts[i].weight,
+          session: sessionNow,
+        },
+      ])
+      .select();
 
-  if (error) {
-    console.error('Error inserting data:', error);
-  } else {
-    console.log('Data inserted successfully:', data);
+    if (error) {
+      console.error('Error inserting data:', error);
+    } else {
+      console.log('Data inserted successfully:', data);
+    }
   }
 }
 

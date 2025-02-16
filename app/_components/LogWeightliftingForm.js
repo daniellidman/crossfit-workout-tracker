@@ -1,108 +1,95 @@
 'use client';
 
 import { useState } from 'react';
-import { useRouter } from 'next/navigation';
 import Form from 'next/form';
+import { useRouter } from 'next/navigation';
+import { logWeightlifting } from '@/app/_lib/logWorkout';
 
 export default function LogWeightliftingForm({ loadedMovements }) {
   const router = useRouter();
+
   const [formValues, setFormValues] = useState([
-    {
-      movement: '',
-      date: '',
-      scoreType: '',
-      scale: '',
-      weight: 0,
-      reps: 0,
-      workoutDescription: '',
-      notes: '',
-    },
+    { date: '', reps: 0, movement: '', weight: 0 },
   ]);
 
-  async function handleSubmit(formData) {
-    //
+  async function handleFormChange(index, e) {
+    let data = [...formValues];
+    data[index][e.target.name] = e.target.value;
+    setFormValues(data);
+  }
 
-    const newSubmission = {
-      name: formValues.name,
-      date: formValues.date,
-      scoreType: formValues.scoreType,
-      scale: formValues.scale,
-      timeMin: formValues.timeMin,
-      timeSec: formValues.timeSec,
-      workoutDescription: formValues.workoutDescription,
-      notes: formValues.notes,
-    };
+  const addFields = () => {
+    let newMovement = { date: '', reps: 0, movement: '', weight: 0 };
+    setFormValues([...formValues, newMovement]);
+  };
 
-    await logWeightlifting(newSubmission);
+  const removeFields = (index) => {
+    let data = [...formValues];
+    data.splice(index, 1);
+    setFormValues(data);
+  };
 
-    // Navigate to new page
+  async function submit(e) {
+    e.preventDefault();
+    console.log(formValues);
+
+    //Send to Supabase
+    await logWeightlifting(formValues);
+
+    //Return to Work Out Page
     router.push('/workout', { scroll: false });
   }
 
   return (
-    <Form action={handleSubmit}>
-      <label htmlFor="date" className="font-bold">
-        Date
-      </label>
-      <input
-        name="date"
-        id="date"
-        type="date"
-        value={formValues.date || ''}
-        onChange={(e) => setFormValues({ ...formValues, date: e.target.value })}
-        className="block"
-      />
+    <Form onSubmit={submit}>
+      {formValues.map((input, index) => {
+        return (
+          <div key={index}>
+            <input
+              name="date"
+              type="date"
+              value={input.date}
+              onChange={(e) => handleFormChange(index, e)}
+            />
+            <input
+              name="reps"
+              type="number"
+              placeholder="Reps"
+              value={input.reps}
+              onChange={(e) => handleFormChange(index, e)}
+            />
+            <select
+              name="movement"
+              value={input.movement}
+              onChange={(e) => handleFormChange(index, e)}
+            >
+              <option value="">-Select-</option>
+              {loadedMovements.map((mov) => (
+                <option value={mov.name} key={mov.id}>
+                  {mov.name}
+                </option>
+              ))}
+            </select>
+            <input
+              name="weight"
+              type="number"
+              placeholder="Pounds"
+              value={input.weight}
+              onChange={(e) => handleFormChange(index, e)}
+            />
+            <button type="button" onClick={() => removeFields(index)}>
+              ➖
+            </button>
+          </div>
+        );
+      })}
+      <button type="button" onClick={addFields}>
+        ➕
+      </button>
 
-      <input
-        name="reps"
-        id="reps"
-        type="number"
-        placeholder="Reps"
-        value={formValues.reps || ''}
-        onChange={(e) => setFormValues({ ...formValues, reps: e.target.value })}
-      />
-
-      <select
-        name="movement"
-        id="movement"
-        value={formValues.movement}
-        onChange={(e) =>
-          setFormValues({ ...formValues, movement: e.target.value })
-        }
-      >
-        <option value="">-Select-</option>
-        {loadedMovements.map((mov) => (
-          <option value={mov.name} key={mov.id}>
-            {mov.name}
-          </option>
-        ))}
-      </select>
-
-      <input
-        name="weight"
-        id="weight"
-        type="number"
-        placeholder="Pounds"
-        value={formValues.weight || ''}
-        onChange={(e) =>
-          setFormValues({ ...formValues, weight: e.target.value })
-        }
-      />
-
-      <label htmlFor="notes" className="block font-bold">
-        Notes
-      </label>
-      <textarea
-        name="notes"
-        id="notes"
-        value={formValues.notes}
-        onChange={(e) =>
-          setFormValues({ ...formValues, notes: e.target.value })
-        }
-        className="block w-3/4"
-      ></textarea>
-
-      <button type="submit">Add</button>
+      <button type="submit" onClick={submit} className="block">
+        Submit
+      </button>
     </Form>
   );
 }
