@@ -1,3 +1,4 @@
+import { MyDatePicker } from '../_components/CalendarDatePicker';
 import WOD from '../_components/WOD';
 import { tempWorkouts } from './tempWorkouts';
 import Link from 'next/link';
@@ -10,6 +11,8 @@ export default function Page() {
   return (
     <div>
       <h1 className="text-4xl font-bold">Workout Log</h1>
+      <MyDatePicker />
+      <h1 className="mt-5 text-4xl font-bold">{'Today'}</h1>
 
       <div className="flex min-w-[240px] gap-1 p-2 text-base font-normal">
         <Link
