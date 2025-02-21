@@ -52,30 +52,32 @@ export function DayWorkoutLog({ wods, lifts }) {
         )}
       </div>
 
-      <div>
-        <h2 className="text-lg font-bold">WODs</h2>
-        {filteredWods.map((wod, index) => (
-          <div key={index}>
-            <h1>{wod.name}</h1>
-            <p>
-              Scoring: {wod.scoreType} Scale:{wod.scale}
-              Time: {wod.timeMin}:{wod.timeSec}
-              Description: {wod.workoutDescription} Notes:{wod.notes}
-            </p>
-          </div>
-        ))}
-      </div>
+      <div className="relative flex">
+        <div className="w-1/2">
+          <h2 className="text-lg font-bold">WODs</h2>
+          {filteredWods.map((wod, index) => (
+            <div key={index}>
+              <h1>{wod.name}</h1>
+              <p>
+                Scoring: {wod.scoreType} Scale:{wod.scale}
+                Time: {wod.timeMin}:{wod.timeSec}
+                Description: {wod.workoutDescription} Notes:{wod.notes}
+              </p>
+            </div>
+          ))}
+        </div>
 
-      <div>
-        <h2 className="text-lg font-bold">Weightlifting</h2>
-        {filteredWeightlifting.map((lift, index) => (
-          <div key={index}>
-            <h1>{lift.movement}</h1>
-            <p>
-              Reps: {lift.reps} Weight:{lift.weight} Notes:{lift.notes}
-            </p>
-          </div>
-        ))}
+        <div className="w-1/2">
+          <h2 className="text-lg font-bold">Weightlifting</h2>
+          {filteredWeightlifting.map((lift, index) => (
+            <div key={index}>
+              <h1>{lift.movement}</h1>
+              <p>
+                Reps: {lift.reps} Weight:{lift.weight} Notes:{lift.notes}
+              </p>
+            </div>
+          ))}
+        </div>
       </div>
 
       <div className="flex min-w-[240px] gap-1 p-2 text-base font-normal">
