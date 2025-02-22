@@ -79,7 +79,6 @@ export default function LogWorkoutForm() {
       >
         <option value="">-Score Type-</option>
         <option value="forTime">For Time</option>
-        <option value="weightlifting">Weight Lifting</option>
         <option value="roundsAndReps">Rounds & Reps</option>
         <option value="reps">Reps</option>
         <option value="distance">Distance</option>
