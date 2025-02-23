@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@editorjs/editorjs": "^2.30.8",
     "@heroicons/react": "^2.2.0",
     "@heroui/calendar": "^2.2.13",
     "@heroui/system": "^2.4.10",
@@ -17,6 +18,7 @@
     "@supabase/supabase-js": "^2.48.1",
     "framer-motion": "^12.4.5",
     "next": "15.1.6",
+    "novel": "^1.0.2",
     "react": "^19.0.0",
     "react-day-picker": "^9.5.1",
     "react-dom": "^19.0.0",

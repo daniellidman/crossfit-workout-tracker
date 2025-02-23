@@ -53,7 +53,6 @@ export default function LogWorkoutForm() {
         onChange={(e) => setFormValues({ ...formValues, name: e.target.value })}
         className="block w-3/4"
       />
-
       <label htmlFor="date" className="font-bold">
         Date
       </label>

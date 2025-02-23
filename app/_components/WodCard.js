@@ -46,13 +46,7 @@ export function WodCard({ wod }) {
         <h4 className="mb-2 text-sm font-bold text-slate-700">{scaleIcon}</h4>
       </div>
       <div className="w-full px-4">
-        <p className="my-6 text-sm">
-          {workoutDescription}
-          <strong>5-10-15-20-15-10-5</strong> <br />
-          Cals Bike <br />
-          HSPU - Scaled to Pike Pushups <br /> <br />
-          <em>15 minute timecap</em>
-        </p>
+        <p className="my-6 whitespace-pre-wrap text-sm">{workoutDescription}</p>
         {!notes ? (
           ''
         ) : (
@@ -69,28 +63,40 @@ export function WodCard({ wod }) {
   );
 }
 
-export function LiftingCard() {
+export function LiftingCard({ sesh }) {
+  console.log('sesh:', sesh);
   return (
     <div className="mx-auto my-4 rounded-lg bg-slate-200 p-1 shadow-sm">
       <div className="grid w-full grid-flow-row grid-cols-2 grid-rows-2 rounded-lg bg-white px-4 py-3 shadow-md">
-        <h3 className="mb-1 text-lg font-black">Deadlift</h3>
-        <h4 className="mb-2 text-sm font-bold text-slate-700">⏱️ 20:00</h4>
-        <h4 className="mb-2 inline text-sm font-bold text-orange-500">4x4</h4>
+        <h3 className="mb-1 text-lg font-black">{sesh[0].movement}</h3>
+        <h4 className="mb-2 text-sm font-bold text-slate-700">⏱️ 20:00 ???</h4>
+        <h4 className="mb-2 inline text-sm font-bold text-orange-500">
+          4x4 ????
+        </h4>
 
-        <h4 className="mb-2 text-sm font-bold text-slate-700">🔔 PR</h4>
+        <h4 className="mb-2 text-sm font-bold text-slate-700">🔔 PR???</h4>
       </div>
       <div className="w-full px-4">
-        <p className="my-6 text-sm">
-          Deadlift <strong>4 x 285 lb</strong> <br />
-          Deadlift <strong>4 x 305 lb</strong> <br />
-          Deadlift <strong>4 x 315 lb</strong> <br />
-          Deadlift <strong>4 x 325 lb</strong> <br />
-        </p>
-        <div className="mb-6 w-11/12 border-t border-solid border-slate-500"></div>
-        <p className="mb-6 text-sm">
-          <strong>Notes</strong>
-          <br /> Would love to do this again soon!
-        </p>
+        <div className="my-6">
+          {sesh.map((lift, i) => (
+            <p key={i} className="text-sm">
+              {sesh[i].movement} {sesh[i].reps} x {sesh[i].weight} lb
+            </p>
+          ))}
+        </div>
+        {!sesh[0].notes ? (
+          ''
+        ) : (
+          <div>
+            <div className="mb-6 w-11/12 border-t border-solid border-slate-500"></div>
+
+            <p className="mb-6 whitespace-pre-wrap text-sm">
+              <strong>Notes</strong>
+              <br />
+              {sesh[0].notes}
+            </p>
+          </div>
+        )}
       </div>
     </div>
   );

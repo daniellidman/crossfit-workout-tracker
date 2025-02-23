@@ -18,6 +18,11 @@ export function DayWorkoutLog({ wods, lifts }) {
   const filteredWeightlifting = lifts.filter(
     (lift) => lift.date === selectedReformatted,
   );
+  const dayLiftingSessions = Object.groupBy(
+    filteredWeightlifting,
+    ({ session }) => session,
+  );
+  const dayLiftingSessionsArray = Object.values(dayLiftingSessions);
 
   const options = {
     weekday: 'long',
@@ -56,7 +61,11 @@ export function DayWorkoutLog({ wods, lifts }) {
         <WodCard wod={wod} key={index} />
       ))}
 
-      <LiftingCard />
+      {dayLiftingSessionsArray.map((sesh, index) => (
+        <LiftingCard sesh={sesh} key={index} />
+      ))}
+
+      {/* <LiftingCard /> */}
 
       <div className="relative flex">
         <div className="w-1/2">
