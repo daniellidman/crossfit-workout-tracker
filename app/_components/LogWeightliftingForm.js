@@ -9,8 +9,10 @@ export default function LogWeightliftingForm({ loadedMovements }) {
   const router = useRouter();
 
   const [formValues, setFormValues] = useState([
-    { date: '', reps: 0, movement: '', weight: 0 },
+    { reps: 0, movement: '', weight: 0 },
   ]);
+  const [sessionName, setSessionName] = useState('Workout Name');
+  const [sessionDate, setSessionDate] = useState('');
 
   async function handleFormChange(index, e) {
     let data = [...formValues];
@@ -19,7 +21,11 @@ export default function LogWeightliftingForm({ loadedMovements }) {
   }
 
   const addFields = () => {
-    let newMovement = { date: '', reps: 0, movement: '', weight: 0 };
+    let newMovement = {
+      reps: 0,
+      movement: '',
+      weight: 0,
+    };
     setFormValues([...formValues, newMovement]);
   };
 
@@ -31,10 +37,15 @@ export default function LogWeightliftingForm({ loadedMovements }) {
 
   async function submit(e) {
     e.preventDefault();
-    console.log(formValues);
+
+    const formValuesWithDateAndName = formValues.map((set) => ({
+      ...set,
+      sessionName: sessionName,
+      date: sessionDate,
+    }));
 
     //Send to Supabase
-    await logWeightlifting(formValues);
+    await logWeightlifting(formValuesWithDateAndName);
 
     //Return to Work Out Page
     router.push('/workout', { scroll: false });
@@ -42,15 +53,21 @@ export default function LogWeightliftingForm({ loadedMovements }) {
 
   return (
     <Form onSubmit={submit}>
+      <input
+        name="sessionName"
+        placeholder="Workout Name"
+        value={sessionName}
+        onChange={(e) => setSessionName(e.target.value)}
+      ></input>
+      <input
+        name="date"
+        type="date"
+        value={sessionDate}
+        onChange={(e) => setSessionDate(e.target.value)}
+      />
       {formValues.map((input, index) => {
         return (
           <div key={index}>
-            <input
-              name="date"
-              type="date"
-              value={input.date}
-              onChange={(e) => handleFormChange(index, e)}
-            />
             <input
               name="reps"
               type="number"

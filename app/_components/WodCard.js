@@ -64,16 +64,10 @@ export function WodCard({ wod }) {
 }
 
 export function LiftingCard({ sesh }) {
-  console.log('sesh:', sesh);
   return (
     <div className="mx-auto my-4 rounded-lg bg-slate-200 p-1 shadow-sm">
-      <div className="grid w-full grid-flow-row grid-cols-2 grid-rows-2 rounded-lg bg-white px-4 py-3 shadow-md">
-        <h3 className="mb-1 text-lg font-black">{sesh[0].movement}</h3>
-        <h4 className="mb-2 text-sm font-bold text-slate-700">⏱️ 20:00 ???</h4>
-        <h4 className="mb-2 inline text-sm font-bold text-orange-500">
-          4x4 ????
-        </h4>
-
+      <div className="grid w-full grid-flow-row grid-cols-2 rounded-lg bg-white px-4 py-3 shadow-md">
+        <h3 className="mb-1 text-lg font-black">{sesh[0].sessionName}</h3>
         <h4 className="mb-2 text-sm font-bold text-slate-700">🔔 PR???</h4>
       </div>
       <div className="w-full px-4">

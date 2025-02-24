@@ -18,7 +18,7 @@ const dmSans = DM_Sans({
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={`${dmSans.className} bg-slate-100`}>
+      <body className={`${dmSans.className} mr-4 bg-slate-100`}>
         <header></header>
         <main className="grid h-full grid-cols-[16rem_1fr] gap-12">
           <SideNavigation />

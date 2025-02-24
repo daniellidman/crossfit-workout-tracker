@@ -50,6 +50,7 @@ export async function logWeightlifting(arrayOfLifts) {
           movement: arrayOfLifts[i].movement,
           weight: arrayOfLifts[i].weight,
           session: sessionNow,
+          sessionName: arrayOfLifts[i].sessionName,
         },
       ])
       .select();

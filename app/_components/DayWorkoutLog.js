@@ -65,8 +65,6 @@ export function DayWorkoutLog({ wods, lifts }) {
         <LiftingCard sesh={sesh} key={index} />
       ))}
 
-      {/* <LiftingCard /> */}
-
       <div className="relative flex">
         <div className="w-1/2">
           <h2 className="text-lg font-bold">WODs</h2>
