@@ -38,7 +38,7 @@ export function WodCard({ wod }) {
       <div className="grid w-full grid-flow-row grid-cols-2 grid-rows-2 rounded-lg bg-white px-4 py-3 shadow-md">
         <h3 className="mb-1 text-lg font-black">{name}</h3>
         <h4 className="mb-2 text-sm font-bold text-slate-700">
-          ⏱️ {timeMin}:{timeSec}
+          ⏱️ {timeMin}:{String(timeSec).padStart(2, '0')}
         </h4>
         <h4 className="mb-2 inline text-sm font-bold text-orange-500">
           {scoreTypeText}

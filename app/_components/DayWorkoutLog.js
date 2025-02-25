@@ -25,23 +25,56 @@ export function DayWorkoutLog({ wods, lifts }) {
   const dayLiftingSessionsArray = Object.values(dayLiftingSessions);
 
   const options = {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
+    weekday: 'short',
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit',
   };
   const dateInWords =
     selected.setHours(0, 0, 0, 0) == today.setHours(0, 0, 0, 0)
       ? 'Today'
       : selected.toLocaleDateString('en-US', options);
 
+  let previousDate = new Date();
+  let nextDate = new Date();
+
+  previousDate.setDate(selected.getDate() - 1);
+  nextDate.setDate(selected.getDate() + 1);
+
+  const previousDateInWords = previousDate.toLocaleDateString('en-US', options);
+
+  const nextDateInWords = nextDate.toLocaleDateString('en-US', options);
+
+  function handlePreviousButton() {
+    setSelected(previousDate);
+  }
+
+  console.log('previousDate:', previousDate);
+  console.log('nextDate:', nextDate);
+
   return (
     <div className="my-10">
-      <h1 className="mt-5 text-4xl font-bold">{`${dateInWords}`}</h1>
-      <div>
-        <button onClick={() => setHidden(!hidden)}>
-          {hidden ? 'Show' : 'Hide'} Calendar
+      <div className="relative flex justify-between">
+        <button
+          className="mt-5 text-4xl font-bold"
+          onClick={() => setSelected(previousDate)}
+        >
+          {'<'}
         </button>
+        <h1 className="mt-5 text-2xl font-bold">{previousDateInWords}</h1>
+        <h1
+          className="mt-5 text-2xl font-bold"
+          onClick={() => setHidden(!hidden)}
+        >{`🗓️ ${dateInWords}`}</h1>
+        <h1 className="mt-5 text-2xl font-bold">{nextDateInWords}</h1>
+        <button
+          className="mt-5 text-4xl font-bold"
+          onClick={() => setSelected(nextDate)}
+        >
+          {'>'}
+        </button>
+      </div>
+      <div>
         {hidden ? (
           ''
         ) : (
@@ -64,34 +97,6 @@ export function DayWorkoutLog({ wods, lifts }) {
       {dayLiftingSessionsArray.map((sesh, index) => (
         <LiftingCard sesh={sesh} key={index} />
       ))}
-
-      <div className="relative flex">
-        <div className="w-1/2">
-          <h2 className="text-lg font-bold">WODs</h2>
-          {filteredWods.map((wod, index) => (
-            <div key={index}>
-              <h1>{wod.name}</h1>
-              <p>
-                Scoring: {wod.scoreType} Scale:{wod.scale}
-                Time: {wod.timeMin}:{wod.timeSec}
-                Description: {wod.workoutDescription} Notes:{wod.notes}
-              </p>
-            </div>
-          ))}
-        </div>
-
-        <div className="w-1/2">
-          <h2 className="text-lg font-bold">Weightlifting</h2>
-          {filteredWeightlifting.map((lift, index) => (
-            <div key={index}>
-              <h1>{lift.movement}</h1>
-              <p>
-                Reps: {lift.reps} Weight:{lift.weight} Notes:{lift.notes}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
     </div>
   );
 }
