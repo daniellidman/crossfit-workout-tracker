@@ -8,6 +8,7 @@ export default function FitnessGoal({ goal }) {
           {Math.floor((goal.progress / goal.target) * 100)}%)
         </strong>
       </p>
+      <p>Add new system</p>
     </div>
   );
 }
