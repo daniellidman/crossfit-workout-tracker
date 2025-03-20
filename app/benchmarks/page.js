@@ -52,6 +52,9 @@ export default function Page() {
         <li>
           <p>Sprint 400m</p>
         </li>
+        <li>
+          <p>Front Squat</p>
+        </li>
       </ul>
     </div>
   );
